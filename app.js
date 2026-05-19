@@ -212,15 +212,18 @@
       if (!pending) resetting = false;
     }
 
-    // pointer
+    // pointer — pointer* events cover both mouse and touch (finger drag)
     let mx = -9999, my = -9999, inside = false;
-    hero.addEventListener('mousemove', (e) => {
+    hero.addEventListener('pointermove', (e) => {
       const r = hero.getBoundingClientRect();
       mx = e.clientX - r.left;
       my = e.clientY - r.top;
       inside = true;
     });
-    hero.addEventListener('mouseleave', () => {
+    hero.addEventListener('pointerleave', () => {
+      inside = false; mx = my = -9999;
+    });
+    hero.addEventListener('pointercancel', () => {
       inside = false; mx = my = -9999;
     });
 
