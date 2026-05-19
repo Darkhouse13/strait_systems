@@ -845,6 +845,114 @@ button { font: inherit; color: inherit; }
   color: var(--fg-dim);
 }
 
+/* ---------- PROJECTS / RÉALISATIONS ---------- */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  color: inherit;
+  transition:
+    border-color 200ms var(--ease),
+    transform 200ms var(--ease),
+    box-shadow 200ms var(--ease);
+}
+.project:hover {
+  border-color: var(--line-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 50px -28px rgba(0, 0, 0, 0.55);
+}
+
+.project-shot {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, var(--bg-2), var(--bg-1));
+}
+.project-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 500ms var(--ease);
+}
+.project:hover .project-shot img {
+  transform: scale(1.03);
+}
+
+.project-shot-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: var(--bg-glass);
+  border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--fg-dim);
+  font-size: 9.5px;
+}
+.project-shot-tag i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--status-ok);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--status-ok), transparent 80%);
+}
+
+.project-meta {
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.project-tag {
+  color: var(--accent);
+}
+.project h3 {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.project p {
+  color: var(--fg-dim);
+  font-size: 14.5px;
+  line-height: 1.55;
+  max-width: 34ch;
+  flex: 1;
+}
+.project-link {
+  margin-top: 6px;
+  color: var(--accent-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.project-link .arrow {
+  transition: transform 200ms var(--ease);
+  display: inline-block;
+}
+.project:hover .project-link .arrow {
+  transform: translate(2px, -2px);
+}
+
 /* ---------- TANGIER ANCHOR ---------- */
 .anchor {
   display: grid;
@@ -1251,7 +1359,11 @@ button { font: inherit; color: inherit; }
   .hero-grid, .anchor { grid-template-columns: 1fr; gap: 56px; }
   .dual { grid-template-columns: 1fr; }
   .engine + .engine { border-left: 0; border-top: 1px solid var(--line); }
+  .projects { grid-template-columns: 1fr 1fr; }
   .sandbox-body { grid-template-columns: 1fr; }
   .sandbox-aside { border-right: 0; border-bottom: 1px solid var(--line); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .projects { grid-template-columns: 1fr; }
 }
