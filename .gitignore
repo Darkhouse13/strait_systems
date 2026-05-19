@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# debug / conversation artifacts
+Screenshot*.png
+*.png
+
+# design reference scratch files (content already integrated into the site)
+E4 _ Volets blind_s.html
+hero-e4-shutters.html
+hero-options/
+
+# archive of prior version + chat logs — not part of the live site
+strait-v2/
