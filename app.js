@@ -539,4 +539,348 @@
 
   // kick off
   startStream(activeKey);
+
+  // ── Canal d'admission ────────────────────────────────────────────────────
+  // The contact CTAs open a console-styled intake modal. On submit, a
+  // deployment trace streams (reusing the .log aesthetic) and resolves into a
+  // receipt — but only after the submission is genuinely delivered.
+  (function channel() {
+    const modal = document.getElementById('channel');
+    const form = document.getElementById('channelForm');
+    if (!modal || !form) return;
+
+    // Web3Forms access key — submissions are emailed to the address the key is
+    // registered with (mohamed.zitan@straitsystems.com). This is a public
+    // submission key (safe in client source); spam is caught by the honeypot.
+    const WEB3FORMS_KEY = 'cc83da37-dd0a-42be-b329-ab285739d1e5';
+    const ENDPOINT = 'https://api.web3forms.com/submit';
+    const FALLBACK_EMAIL = 'mohamed.zitan@straitsystems.com';
+
+    const panel = modal.querySelector('.channel-panel');
+    const trace = document.getElementById('channelTrace');
+    const receipt = document.getElementById('channelReceipt');
+    const logEl = document.getElementById('channelLog');
+    const traceActions = document.getElementById('channelTraceActions');
+    const stageEl = document.getElementById('channelStage');
+    const sessionEl = document.getElementById('channelSession');
+    const submitLabel = document.querySelector('#channelSubmit .channel-submit-label');
+    const liveEl = document.getElementById('channelLive');
+    const slugEl = document.getElementById('channelSlug');
+    const kickerEl = document.getElementById('channelKicker');
+    const titleEl = document.getElementById('channelTitle');
+    const subEl = document.getElementById('channelSub');
+    const refEl = document.getElementById('channelRef');
+    const receiptStatus = document.getElementById('channelReceiptStatus');
+    const receiptMsg = document.getElementById('channelReceiptMsg');
+    const retryBtn = document.getElementById('channelRetry');
+    const mailtoLink = document.getElementById('channelMailto');
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const hex4 = () =>
+      ((Math.random() * 65536) | 0).toString(16).padStart(4, '0').toUpperCase();
+
+    const COPY = {
+      deploy: {
+        slug: 'deploiement',
+        kicker: 'Séquence de déploiement',
+        title: 'Initier une séquence de déploiement.',
+        sub: "Décrivez le périmètre. Strait route votre demande vers l'architecte concerné — réponse depuis Tanger.",
+        submit: 'Initier le déploiement',
+        refPrefix: 'STRAIT-DPL',
+        intentLabel: 'Déploiement',
+        receiptStatus: 'Dossier verrouillé',
+        receiptMsg: "Votre demande est routée vers l'architecte concerné. Réponse depuis Tanger sous un jour ouvré.",
+      },
+      briefing: {
+        slug: 'briefing',
+        kicker: 'Demande de briefing',
+        title: 'Programmer un briefing.',
+        sub: "Trente minutes avec l'équipe qui opère la pile — une lecture technique de votre contexte, pas une présentation commerciale.",
+        submit: 'Verrouiller le briefing',
+        refPrefix: 'STRAIT-BRF',
+        intentLabel: 'Briefing',
+        receiptStatus: 'Briefing verrouillé',
+        receiptMsg: "Votre créneau est réservé. L'équipe qui opère la pile vous contacte sous un jour ouvré.",
+      },
+    };
+
+    let intent = 'deploy';
+    let lastFocused = null;
+    let runId = 0;
+    let busy = false;
+
+    function showState(state) {
+      form.hidden = state !== 'form';
+      trace.hidden = state !== 'trace';
+      receipt.hidden = state !== 'receipt';
+      if (panel) panel.scrollTop = 0;
+    }
+
+    function open(which) {
+      intent = COPY[which] ? which : 'deploy';
+      const c = COPY[intent];
+      slugEl.textContent = c.slug;
+      kickerEl.textContent = c.kicker;
+      titleEl.textContent = c.title;
+      subEl.textContent = c.sub;
+      submitLabel.textContent = c.submit;
+      sessionEl.textContent = hex4().toLowerCase();
+      traceActions.hidden = true;
+      showState('form');
+      modal.hidden = false;
+      document.body.classList.add('channel-open');
+      lastFocused = document.activeElement;
+      window.requestAnimationFrame(() => document.getElementById('ch-name')?.focus());
+    }
+
+    function close() {
+      runId += 1;          // cancel any in-flight stream
+      busy = false;
+      modal.hidden = true;
+      document.body.classList.remove('channel-open');
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    // ── validation ──
+    function setError(input, on) {
+      input.setAttribute('aria-invalid', on ? 'true' : 'false');
+      const err = form.querySelector('[data-error-for="' + input.id + '"]');
+      if (err) err.classList.toggle('show', on);
+    }
+    function validate() {
+      let firstBad = null;
+      ['ch-name', 'ch-email', 'ch-org'].forEach((id) => {
+        const input = document.getElementById(id);
+        const bad = !input.value.trim() ||
+          (input.type === 'email' && !input.checkValidity());
+        setError(input, bad);
+        if (bad && !firstBad) firstBad = input;
+      });
+      if (firstBad) firstBad.focus();
+      return !firstBad;
+    }
+
+    // ── one trace line, same DOM shape as the sandbox log ──
+    function traceLine(elapsed, lvl, source, msg) {
+      const el = document.createElement('div');
+      el.className = 'log-line';
+
+      const t = document.createElement('span');
+      t.className = 't';
+      t.textContent = '+' + elapsed.toFixed(2).padStart(5, '0');
+      el.appendChild(t);
+
+      const lv = document.createElement('span');
+      lv.className = 'lvl ' + lvl;
+      lv.textContent = lvl.toUpperCase();
+      el.appendChild(lv);
+
+      const m = document.createElement('span');
+      m.className = 'msg';
+      const b = document.createElement('b');
+      b.textContent = source + ' ';
+      m.appendChild(b);
+      m.appendChild(document.createTextNode(msg));
+      el.appendChild(m);
+
+      logEl.appendChild(el);
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    async function sendRequest(payload) {
+      const keyMissing = !WEB3FORMS_KEY || WEB3FORMS_KEY.indexOf('REPLACE_WITH') === 0;
+      if (keyMissing) {
+        // Preview affordance: on localhost / file:// the trace + receipt stay
+        // demoable before the Web3Forms key is set. On any real host an unset
+        // key resolves to the failure path — nothing pretends to have sent.
+        const local =
+          ['localhost', '127.0.0.1', '[::1]', ''].indexOf(location.hostname) !== -1;
+        if (local) {
+          console.warn('[canal] aperçu local — clé Web3Forms absente, aucun e-mail envoyé.');
+        }
+        return { ok: local };
+      }
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const json = await res.json().catch(() => ({}));
+        return { ok: res.ok && json.success === true };
+      } catch (e) {
+        return { ok: false };
+      }
+    }
+
+    function showReceipt(ref) {
+      const c = COPY[intent];
+      refEl.textContent = ref;
+      receiptStatus.textContent = c.receiptStatus;
+      receiptMsg.textContent = c.receiptMsg;
+      showState('receipt');
+      liveEl.textContent = c.receiptStatus + ' — référence ' + ref + '. ' + c.receiptMsg;
+    }
+
+    function showFailure(payload, ref) {
+      traceActions.hidden = false;
+      const body =
+        'Référence ' + ref + '\n' +
+        'Directive : ' + payload.directive + '\n' +
+        'Identité : ' + payload.name + '\n' +
+        'Entité : ' + payload.organisation + '\n' +
+        'Canal de retour : ' + payload.email + '\n\n' +
+        'Périmètre :\n' + payload.perimetre + '\n';
+      mailtoLink.href =
+        'mailto:' + FALLBACK_EMAIL +
+        '?subject=' + encodeURIComponent('Strait · ' + COPY[intent].intentLabel + ' [' + ref + ']') +
+        '&body=' + encodeURIComponent(body);
+      liveEl.textContent = 'La transmission a échoué. Réessayez ou écrivez-nous directement.';
+    }
+
+    async function submit() {
+      if (busy || !validate()) return;
+      const c = COPY[intent];
+      const data = new FormData(form);
+      if (data.get('botcheck')) return;          // honeypot tripped
+
+      const ref = c.refPrefix + '-' + hex4();
+      const directive = String(data.get('directive') || '—');
+      const myRun = ++runId;
+      busy = true;
+
+      const payload = {
+        access_key: WEB3FORMS_KEY,
+        subject: 'Strait · ' + c.intentLabel + ' · ' + data.get('organisation') + ' [' + ref + ']',
+        from_name: String(data.get('name') || ''),
+        name: String(data.get('name') || ''),
+        email: String(data.get('email') || ''),
+        organisation: String(data.get('organisation') || ''),
+        directive: directive,
+        perimetre: String(data.get('perimetre') || '').trim() || '—',
+        intent: intent,
+        ref: ref,
+      };
+
+      logEl.innerHTML = '';
+      traceActions.hidden = true;
+      stageEl.textContent = 'transmission…';
+      showState('trace');
+      liveEl.textContent = 'Transmission en cours…';
+
+      // fire the request now; let the trace play while it resolves
+      const request = sendRequest(payload);
+      const animate = !reduceMotion.matches;
+
+      traceLine(0.04, 'exec', '[intake]', 'canal sécurisé établi · TGR-HQ');
+      if (animate) await wait(360);
+      if (myRun !== runId) return;
+      traceLine(0.22, 'info', '[route]', 'requête chiffrée transmise · eu-tgr-1');
+      if (animate) await wait(380);
+      if (myRun !== runId) return;
+      traceLine(0.55, 'info', '[triage]', 'périmètre classé · ' + directive);
+      if (animate) await wait(300);
+      if (myRun !== runId) return;
+
+      const result = await request;
+      if (myRun !== runId) { busy = false; return; }
+
+      if (result.ok) {
+        traceLine(1.08, 'ok', '[assign]',
+          intent === 'briefing' ? 'créneau de briefing · ouvert'
+                                : 'architecte principal · disponible');
+        if (animate) await wait(380);
+        if (myRun !== runId) { busy = false; return; }
+        traceLine(1.31, 'ok', '[lock]',
+          (intent === 'briefing' ? 'briefing' : 'dossier') + ' verrouillé · réf ' + ref);
+        stageEl.textContent = 'verrouillé';
+        if (animate) await wait(420);
+        if (myRun !== runId) { busy = false; return; }
+        showReceipt(ref);
+      } else {
+        traceLine(1.10, 'err', '[abort]', 'transmission interrompue · canal fermé');
+        stageEl.textContent = 'échec';
+        showFailure(payload, ref);
+      }
+      busy = false;
+    }
+
+    // ── wiring ──
+    document.querySelectorAll('[data-channel-open]').forEach((btn) => {
+      btn.addEventListener('click', () => open(btn.getAttribute('data-channel-open')));
+    });
+    modal.querySelectorAll('[data-channel-close]').forEach((el) => {
+      el.addEventListener('click', close);
+    });
+    form.addEventListener('submit', (e) => { e.preventDefault(); submit(); });
+    retryBtn.addEventListener('click', () => {
+      runId += 1;
+      busy = false;
+      traceActions.hidden = true;
+      showState('form');
+      document.getElementById('ch-name')?.focus();
+    });
+    ['ch-name', 'ch-email', 'ch-org'].forEach((id) => {
+      document.getElementById(id)
+        ?.addEventListener('input', (e) => setError(e.target, false));
+    });
+
+    // keyboard — Escape closes, Tab is trapped within the panel
+    modal.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      if (e.key !== 'Tab') return;
+      const focusable = Array.from(panel.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled])'
+      )).filter((el) => el.offsetParent !== null && el.tabIndex >= 0);
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    });
+  })();
+
+  // ── Nav scroll-spy ───────────────────────────────────────────────────────
+  // Moves the accent underline onto the nav link whose section is in view.
+  // Without this, .active stays on whichever link is hard-coded in the HTML.
+  (function navSpy() {
+    const nav = document.querySelector('.nav');
+    const links = Array.from(document.querySelectorAll('.nav-link'));
+    if (!nav || !links.length) return;
+
+    // pair each link with the element it targets (document/vertical order)
+    const targets = links
+      .map((link) => {
+        const id = (link.getAttribute('href') || '').replace(/^#/, '');
+        const el = id && document.getElementById(id);
+        return el ? { link, el } : null;
+      })
+      .filter(Boolean);
+    if (!targets.length) return;
+
+    let ticking = false;
+    function update() {
+      ticking = false;
+      // a line just below the sticky nav — the section crossing it is "current"
+      const marker = nav.offsetHeight + 24;
+      let current = targets[0];
+      for (const t of targets) {
+        if (t.el.getBoundingClientRect().top <= marker) current = t;
+      }
+      links.forEach((l) => l.classList.toggle('active', l === current.link));
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
 })();

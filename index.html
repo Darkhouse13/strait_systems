@@ -34,8 +34,8 @@
 
         <div class="nav-links">
           <a href="#infrastructure" class="nav-link active">Infrastructure</a>
-          <a href="#autonomy" class="nav-link">Laboratoire Autonomie</a>
-          <a href="#research" class="nav-link">Recherche</a>
+          <a href="#projets" class="nav-link">Réalisations</a>
+          <a href="#ancrage" class="nav-link">Ancrage</a>
           <a href="#sandbox" class="nav-link">Bac à sable</a>
         </div>
 
@@ -53,7 +53,7 @@
               <path d="M11.5 8.4A4.7 4.7 0 0 1 5.6 2.5a4.8 4.8 0 1 0 5.9 5.9z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linejoin="round" />
             </svg>
           </button>
-          <button class="btn btn-accent">
+          <button class="btn btn-accent" data-channel-open="deploy">
             Déployer les systèmes
             <span class="arrow">→</span>
           </button>
@@ -90,7 +90,7 @@
             puissance.
           </p>
           <div class="hero-e4-actions">
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" data-channel-open="briefing">
               Demander un briefing
               <span class="arrow">→</span>
             </button>
@@ -288,7 +288,7 @@
     </section>
 
     <!-- ═══════════════════════════════ TANGIER ANCHOR ═══════════════════════════════ -->
-    <section class="section" id="research">
+    <section class="section" id="ancrage">
       <div class="container">
         <div class="section-eyebrow mono-xs">
           <span class="index">§04</span>
@@ -643,6 +643,133 @@
         </div>
       </div>
     </footer>
+  </div>
+
+  <!-- ═══════════════════════════════ CANAL D'ADMISSION ═══════════════════════════════ -->
+  <div class="channel" id="channel" hidden>
+    <div class="channel-scrim" data-channel-close></div>
+
+    <div class="channel-panel" role="dialog" aria-modal="true" aria-labelledby="channelTitle">
+      <header class="channel-chrome">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="path">strait://canal/tgr-hq/<span id="channelSlug">admission</span></div>
+        <span class="channel-secure"><i></i> CHIFFRÉ</span>
+        <button type="button" class="channel-close" data-channel-close aria-label="Fermer le canal">[ÉCHAP]</button>
+      </header>
+
+      <!-- ── STATE 1 · INTAKE ── -->
+      <form class="channel-form" id="channelForm" novalidate>
+        <div class="channel-intro">
+          <div class="channel-eyebrow mono-xs">
+            <span class="index">§06</span>
+            <span id="channelKicker">Séquence de déploiement</span>
+          </div>
+          <h2 class="channel-title" id="channelTitle">Initier une séquence de déploiement.</h2>
+          <p class="channel-sub" id="channelSub">
+            Décrivez le périmètre. Strait route votre demande vers l'architecte
+            concerné — réponse depuis Tanger.
+          </p>
+        </div>
+
+        <fieldset class="channel-directive">
+          <legend>Directive</legend>
+          <div class="channel-chips">
+            <label class="channel-chip">
+              <input type="radio" name="directive" value="Moteur 01 · Infrastructure" checked />
+              <span>Moteur 01 · Infrastructure</span>
+            </label>
+            <label class="channel-chip">
+              <input type="radio" name="directive" value="Moteur 02 · Autonomie" />
+              <span>Moteur 02 · Autonomie</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="channel-field">
+          <label class="channel-label" for="ch-name">Identité</label>
+          <input id="ch-name" name="name" type="text" required autocomplete="name"
+                 placeholder="Nom · fonction" />
+          <span class="channel-error" data-error-for="ch-name">Champ requis.</span>
+        </div>
+
+        <div class="channel-field">
+          <label class="channel-label" for="ch-email">Canal de retour</label>
+          <input id="ch-email" name="email" type="email" required autocomplete="email"
+                 placeholder="adresse e-mail professionnelle" />
+          <span class="channel-error" data-error-for="ch-email">Adresse e-mail invalide.</span>
+        </div>
+
+        <div class="channel-field">
+          <label class="channel-label" for="ch-org">Entité</label>
+          <input id="ch-org" name="organisation" type="text" required autocomplete="organization"
+                 placeholder="organisation" />
+          <span class="channel-error" data-error-for="ch-org">Champ requis.</span>
+        </div>
+
+        <div class="channel-field">
+          <label class="channel-label" for="ch-scope">
+            Périmètre <span class="channel-optional">— optionnel</span>
+          </label>
+          <textarea id="ch-scope" name="perimetre" rows="3"
+                    placeholder="Systèmes en place, contrainte principale, échéance…"></textarea>
+        </div>
+
+        <!-- honeypot — off-screen, catches bots -->
+        <label class="channel-botcheck" aria-hidden="true">
+          Ne pas remplir ce champ
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" />
+        </label>
+
+        <button type="submit" class="btn btn-accent channel-submit" id="channelSubmit">
+          <span class="channel-submit-label">Initier le déploiement</span>
+          <span class="arrow">→</span>
+        </button>
+
+        <p class="channel-fineprint mono-xs">
+          Canal chiffré · transmis à TGR-HQ · aucune revente de données
+        </p>
+      </form>
+
+      <!-- ── STATE 2 · TRACE ── -->
+      <div class="channel-trace" id="channelTrace" hidden>
+        <div class="channel-console">
+          <div class="channel-console-head">
+            <span class="live"><i></i> DIRECT</span>
+            <span>session · cx-<span id="channelSession">a7f0</span></span>
+            <span class="spacer"></span>
+            <span id="channelStage">transmission…</span>
+          </div>
+          <div class="log" id="channelLog"></div>
+        </div>
+        <div class="channel-trace-actions" id="channelTraceActions" hidden>
+          <button type="button" class="btn btn-accent" id="channelRetry">
+            Réessayer <span class="arrow">→</span>
+          </button>
+          <a class="btn btn-ghost" id="channelMailto" href="#">
+            Écrire directement <span class="arrow">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── STATE 3 · RECEIPT ── -->
+      <div class="channel-receipt" id="channelReceipt" hidden>
+        <div class="channel-receipt-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12.5l4.5 4.5L19 6.5" />
+          </svg>
+        </div>
+        <div class="channel-receipt-status mono-xs" id="channelReceiptStatus">Dossier verrouillé</div>
+        <div class="channel-receipt-ref" id="channelRef">STRAIT-DPL-····</div>
+        <p class="channel-receipt-msg" id="channelReceiptMsg">
+          Votre demande est routée vers l'architecte concerné.
+          Réponse depuis Tanger sous un jour ouvré.
+        </p>
+        <button type="button" class="btn btn-ghost" data-channel-close>Fermer le canal</button>
+      </div>
+
+      <p class="channel-live" id="channelLive" aria-live="polite"></p>
+    </div>
   </div>
 
   <!-- ═══════════════════════════════ SCRIPTS ═══════════════════════════════ -->
