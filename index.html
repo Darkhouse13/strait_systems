@@ -30,9 +30,10 @@
   <meta name="twitter:image" content="https://straitsystems.com/og-image.png" />
   <meta name="twitter:image:alt" content="Strait Systems — automatisation d'entreprise et agents IA autonomes, Tanger" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- fonts are self-hosted (see styles.css @font-face) — only the two
+       above-the-fold faces are preloaded; the rest load on discovery -->
+  <link rel="preload" href="fonts/space-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.svg" />
   <link rel="stylesheet" href="styles.css" />
@@ -605,7 +606,7 @@
 
           <div class="sandbox-body">
             <aside class="sandbox-aside">
-              <h4 id="sbTitle">Optimisation de sync base de données</h4>
+              <h3 id="sbTitle">Optimisation de sync base de données</h3>
               <p id="sbDesc">
                 Synchronisation bidirectionnelle continue entre un cluster
                 Oracle on-prem et un ensemble de répliques Postgres
@@ -674,7 +675,7 @@
             </p>
           </div>
           <div class="footer-col">
-            <h5>Moteurs</h5>
+            <h4>Moteurs</h4>
             <ul>
               <li><a href="#infrastructure">Infrastructure</a></li>
               <li><a href="#autonomy">Laboratoire Autonomie</a></li>
@@ -683,7 +684,7 @@
             </ul>
           </div>
           <div class="footer-col">
-            <h5>Entreprise</h5>
+            <h4>Entreprise</h4>
             <ul>
               <li><a href="#">À propos</a></li>
               <li><a href="#">Carrières · 14 ouverts</a></li>
@@ -692,7 +693,7 @@
             </ul>
           </div>
           <div class="footer-col">
-            <h5>Conformité</h5>
+            <h4>Conformité</h4>
             <ul>
               <li><a href="#">ISO 27001 · SOC 2 Type II</a></li>
               <li><a href="#">RGPD · Loi 09-08 (MA)</a></li>
@@ -838,6 +839,6 @@
   </div>
 
   <!-- ═══════════════════════════════ SCRIPTS ═══════════════════════════════ -->
-  <script src="app.js"></script>
+  <script src="app.js" defer></script>
 </body>
 </html>

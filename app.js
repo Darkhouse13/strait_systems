@@ -272,7 +272,11 @@
       updateReset(t, dt);
 
       const P = currentPalette();
-      drawUnder(t, P);
+      // the under-layer is fully occluded while every slat is closed —
+      // skip the expensive sphere render until something can actually show
+      const underVisible = inside || resetting || slats.some((s) => s.open > 0.002);
+      if (underVisible) drawUnder(t, P);
+      else { ctx1.fillStyle = P.bg; ctx1.fillRect(0, 0, W, H); }
 
       ctx2.clearRect(0, 0, W, H);
       for (const s of slats) {
@@ -326,14 +330,59 @@
       }
 
       const remaining = Math.max(0, RESET_INTERVAL - (t - lastResetT));
-      const el = document.getElementById('resetTimer');
-      if (el) el.textContent = `0:${String(Math.ceil(remaining)).padStart(2, '0')}`;
-      requestAnimationFrame(frame);
+      const sec = Math.ceil(remaining);
+      if ($timer && sec !== timerShown) {
+        timerShown = sec;
+        $timer.textContent = `0:${String(sec).padStart(2, '0')}`;
+      }
     }
 
-    resize();
-    new ResizeObserver(resize).observe(hero);
-    requestAnimationFrame(frame);
+    const $timer = document.getElementById('resetTimer');
+    let timerShown = -1;
+
+    // The loop is deferred: one static frame paints immediately, then the
+    // continuous animation starts on first interaction (or shortly after
+    // load for idle visitors) and pauses whenever the hero is off-screen.
+    // Keeps the load main-thread quiet — and the wow intact.
+    let rafId = 0, running = false, engaged = false, heroVisible = true;
+    function loop(now) {
+      frame(now);
+      rafId = requestAnimationFrame(loop);
+    }
+    function start() {
+      if (running) return;
+      running = true;
+      last = 0;
+      rafId = requestAnimationFrame(loop);
+    }
+    function stop() {
+      if (!running) return;
+      running = false;
+      cancelAnimationFrame(rafId);
+    }
+
+    // initial sizing + static paint in their own frame, off the eval task
+    requestAnimationFrame((now) => {
+      resize();
+      new ResizeObserver(resize).observe(hero);
+      frame(now);   // static first paint (cheap — slats closed, sphere skipped)
+    });
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!reduceMotion.matches) {
+      const kick = () => { engaged = true; if (heroVisible) start(); };
+      ['pointermove', 'pointerdown', 'touchstart', 'wheel', 'keydown', 'scroll']
+        .forEach((ev) => window.addEventListener(ev, kick, { once: true, passive: true }));
+      const armTimer = () => setTimeout(kick, 4000);
+      if (document.readyState === 'complete') armTimer();
+      else window.addEventListener('load', armTimer, { once: true });
+
+      new IntersectionObserver((entries) => {
+        heroVisible = entries.some((e) => e.isIntersecting);
+        if (!heroVisible) stop();
+        else if (engaged) start();
+      }).observe(hero);
+    }
   })();
 
   // ── Sandbox ─────────────────────────────────────────────────────────────
@@ -537,8 +586,18 @@
     startStream(key);
   });
 
-  // kick off
-  startStream(activeKey);
+  // kick off — but only once the sandbox actually scrolls into view, so the
+  // log stream schedules no timers (and mutates no DOM) during page load
+  if ($log) {
+    const sandboxSection = $log.closest('section') || $log;
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        io.disconnect();
+        startStream(activeKey);
+      }
+    }, { rootMargin: '160px' });
+    io.observe(sandboxSection);
+  }
 
   // ── Canal d'admission ────────────────────────────────────────────────────
   // The contact CTAs open a console-styled intake modal. On submit, a

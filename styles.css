@@ -3,6 +3,48 @@
    Hyper-technical, oceanic, institutional.
    ======================================================================== */
 
+/* ---------- FONTS (self-hosted, latin subset — covers FR incl. œ) ---------- */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/space-grotesk-latin-400-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(fonts/space-grotesk-latin-500-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(fonts/space-grotesk-latin-600-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   /* Spacing scale — tweakable via panel */
   --space-unit: 8px;
@@ -40,7 +82,7 @@
 
   --fg: #e6edf7;
   --fg-dim: #8a99b3;
-  --fg-faint: #54607a;
+  --fg-faint: #76849f;   /* ≥4.5:1 on every dark surface (a11y AA for the 11px mono labels) */
 
   --accent: #4dd9ff;          /* strait electric */
   --accent-2: #5effd6;        /* strait teal */
@@ -69,7 +111,7 @@
 
   --fg: #0a1628;
   --fg-dim: #4a5a78;
-  --fg-faint: #8a97b0;
+  --fg-faint: #5d6b86;   /* ≥4.5:1 on every light surface (a11y AA for the 11px mono labels) */
 
   --accent: #007bb6;
   --accent-2: #00a98a;
@@ -1146,7 +1188,7 @@ button { font: inherit; color: inherit; }
   gap: 22px;
 }
 
-.sandbox-aside h4 {
+.sandbox-aside h3 {
   font-size: 17px;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -1316,7 +1358,7 @@ button { font: inherit; color: inherit; }
   line-height: 1.55;
 }
 
-.footer-col h5 {
+.footer-col h4 {
   font-family: "JetBrains Mono", monospace;
   font-size: 10.5px;
   font-weight: 500;
@@ -1493,7 +1535,7 @@ button { font: inherit; color: inherit; }
 
   .sandbox-body { min-height: 0; }
   .sandbox-aside { padding: 20px; gap: 16px; }
-  .sandbox-aside h4 { font-size: 16px; }
+  .sandbox-aside h3 { font-size: 16px; }
   .sandbox-aside p { font-size: 13.5px; }
   .sandbox-metrics { grid-template-columns: 1fr 1fr; }
 
