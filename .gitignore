@@ -7,6 +7,8 @@ Thumbs.db
 # debug / conversation artifacts
 Screenshot*.png
 *.png
+# …except the social-share card, which must be deployed
+!og-image.png
 
 # design reference scratch files (content already integrated into the site)
 E4 _ Volets blind_s.html
