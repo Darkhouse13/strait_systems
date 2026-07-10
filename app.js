@@ -643,11 +643,11 @@
     if (!modal || !form) return;
 
     // Web3Forms access key — submissions are emailed to the address the key is
-    // registered with (mohamed.zitan@straitsystems.com). This is a public
+    // registered with. This is a public
     // submission key (safe in client source); spam is caught by the honeypot.
     const WEB3FORMS_KEY = 'cc83da37-dd0a-42be-b329-ab285739d1e5';
     const ENDPOINT = 'https://api.web3forms.com/submit';
-    const FALLBACK_EMAIL = 'mohamed.zitan@straitsystems.com';
+    const FALLBACK_EMAIL = 'contact@straitsystems.com';
 
     const panel = modal.querySelector('.channel-panel');
     const trace = document.getElementById('channelTrace');
