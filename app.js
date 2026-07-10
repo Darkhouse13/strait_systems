@@ -1,7 +1,7 @@
 /* ========================================================================
    Strait Systems — interactivity
    - Theme toggle (persists)
-   - Hero convergence visual (SVG nodes + animated streams)
+   - Hero E4 « Volets blindés » (two stacked canvases: core + shutters)
    - Sandbox tabs with rotating log stream + metrics
    ======================================================================== */
 
@@ -23,9 +23,6 @@
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     applyTheme(next);
   });
-
-  // Expose for the Tweaks panel
-  window.straitApplyTheme = applyTheme;
 
   // ── Hero E4 · Volets blindés ───────────────────────────────────────────
   // Two stacked canvases:
@@ -279,6 +276,12 @@
       else { ctx1.fillStyle = P.bg; ctx1.fillRect(0, 0, W, H); }
 
       ctx2.clearRect(0, 0, W, H);
+      // the slat body gradient is identical for every slat — build it once
+      // per frame instead of once per slat
+      const slatGrad = ctx2.createLinearGradient(0, 0, 0, H);
+      slatGrad.addColorStop(0, P.slatTop);
+      slatGrad.addColorStop(0.5, P.slatMid);
+      slatGrad.addColorStop(1, P.slatBot);
       for (const s of slats) {
         const open = s.open;
         if (open >= 0.999) continue;
@@ -288,11 +291,7 @@
         const rwx = s.x + half + shift;
         const rw = Math.max(0, half - shift);
 
-        const grad = ctx2.createLinearGradient(0, 0, 0, H);
-        grad.addColorStop(0, P.slatTop);
-        grad.addColorStop(0.5, P.slatMid);
-        grad.addColorStop(1, P.slatBot);
-        ctx2.fillStyle = grad;
+        ctx2.fillStyle = slatGrad;
         if (lw > 0) ctx2.fillRect(s.x, 0, lw, H);
         if (rw > 0) ctx2.fillRect(rwx, 0, rw, H);
 
@@ -562,6 +561,8 @@
 
     let i = 0;
     while (myRun === currentRun) {
+      await waitVisible();          // idle while the sandbox is off-screen
+      if (myRun !== currentRun) break;
       const line = data.lines[i % data.lines.length];
       const node = renderLine(line);
       $log.appendChild(node);
@@ -576,27 +577,60 @@
     }
   }
 
-  $tabs?.addEventListener('click', (e) => {
-    const btn = e.target.closest('.sandbox-tab');
-    if (!btn) return;
+  const $panel = document.getElementById('sandboxPanel');
+
+  function selectTab(btn) {
     const key = btn.dataset.tab;
     if (key === activeKey) return;
-    $tabs.querySelectorAll('.sandbox-tab').forEach((b) => b.classList.toggle('active', b === btn));
+    $tabs.querySelectorAll('.sandbox-tab').forEach((b) => {
+      const on = b === btn;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.tabIndex = on ? 0 : -1;
+    });
+    if ($panel) $panel.setAttribute('aria-labelledby', btn.id);
     activeKey = key;
     startStream(key);
+  }
+
+  $tabs?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.sandbox-tab');
+    if (btn) selectTab(btn);
   });
 
-  // kick off — but only once the sandbox actually scrolls into view, so the
-  // log stream schedules no timers (and mutates no DOM) during page load
+  // roving focus — arrow keys move between tabs, selection follows focus
+  $tabs?.addEventListener('keydown', (e) => {
+    const tabs = Array.from($tabs.querySelectorAll('.sandbox-tab'));
+    const i = tabs.indexOf(document.activeElement);
+    if (i === -1) return;
+    let j;
+    if (e.key === 'ArrowRight') j = (i + 1) % tabs.length;
+    else if (e.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+    else if (e.key === 'Home') j = 0;
+    else if (e.key === 'End') j = tabs.length - 1;
+    else return;
+    e.preventDefault();
+    tabs[j].focus();
+    selectTab(tabs[j]);
+  });
+
+  // the stream starts once the sandbox scrolls into view, and idles while
+  // it's off-screen — no timers, no DOM churn when nobody can see the log
+  let sandboxVisible = false;
+  let waitVisible = () => Promise.resolve();
   if ($log) {
     const sandboxSection = $log.closest('section') || $log;
-    const io = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
-        io.disconnect();
-        startStream(activeKey);
-      }
-    }, { rootMargin: '160px' });
-    io.observe(sandboxSection);
+    const resolvers = [];
+    waitVisible = () => sandboxVisible
+      ? Promise.resolve()
+      : new Promise((r) => { resolvers.push(r); });
+    let started = false;
+    new IntersectionObserver((entries) => {
+      sandboxVisible = entries.some((e) => e.isIntersecting);
+      if (!sandboxVisible) return;
+      if (!started) { started = true; startStream(activeKey); }
+      while (resolvers.length) resolvers.shift()();
+    }, { rootMargin: '160px' }).observe(sandboxSection);
   }
 
   // ── Canal d'admission ────────────────────────────────────────────────────

@@ -30,6 +30,14 @@
   <meta name="twitter:image" content="https://straitsystems.com/og-image.png" />
   <meta name="twitter:image:alt" content="Strait Systems — automatisation d'entreprise et agents IA autonomes, Tanger" />
 
+  <script>
+    // restore the visitor's theme choice before first paint (same key as app.js)
+    try {
+      var t = localStorage.getItem('strait.theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+
   <!-- fonts are self-hosted (see styles.css @font-face) — only the two
        above-the-fold faces are preloaded; the rest load on discovery -->
   <link rel="preload" href="fonts/space-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
@@ -76,6 +84,7 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
   <div class="backdrop-grid"></div>
 
   <div class="page">
@@ -126,6 +135,8 @@
         </div>
       </div>
     </nav>
+
+    <main id="main">
 
     <!-- ═══════════════════════════════ HERO · E4 VOLETS BLINDÉS ═══════════════════════════════ -->
     <section class="hero-e4" id="hero">
@@ -287,12 +298,12 @@
           <span>Réalisations — sélection de projets live</span>
         </div>
         <h2 class="section-title">
-          Architecture en production.<br/>Trois plateformes récentes.
+          Architecture en production.<br/>Cinq plateformes récentes.
         </h2>
         <p class="section-lede">
           Des sites livrés, en ligne, et qui tournent. Chaque projet répond
-          à une contrainte différente — vitesse, conversion, confiance —
-          mais partage la même discipline d'ingénierie.
+          à une contrainte différente — vitesse, conversion, confiance,
+          conformité, marge — mais partage la même discipline d'ingénierie.
         </p>
 
         <div class="projects">
@@ -349,6 +360,44 @@
               <p>Le flux de commandes entre commerces et fournisseurs marocains — conçu à Tanger.</p>
               <div class="project-link mono-xs">
                 silot.ma <span class="arrow">↗</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="project" href="https://badr.straitsystems.com/" target="_blank" rel="noopener noreferrer">
+            <div class="project-shot">
+              <img
+                src="assets/projects/badr.webp"
+                alt="Pré-saisie BADR — assistant IA de classification douanière pour l'import au Maroc"
+                width="1440" height="900"
+                loading="lazy" decoding="async" />
+              <span class="project-shot-tag mono-xs"><i></i>en ligne</span>
+            </div>
+            <div class="project-meta">
+              <span class="project-tag mono-xs">P.04 · douane · MA</span>
+              <h3>Pré-saisie BADR</h3>
+              <p>L'assistant IA des classifications douanières marocaines — extraction de factures, 13 400 positions tarifaires, 2 500 circulaires suivies depuis 1969.</p>
+              <div class="project-link mono-xs">
+                badr.straitsystems.com <span class="arrow">↗</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="project" href="https://textile.qalame.xyz/" target="_blank" rel="noopener noreferrer">
+            <div class="project-shot">
+              <img
+                src="assets/projects/atelier-chiffrage.webp"
+                alt="Atelier Chiffrage — chiffrage de modèles et prix de vente pour les façonniers marocains"
+                width="1440" height="900"
+                loading="lazy" decoding="async" />
+              <span class="project-shot-tag mono-xs"><i></i>en ligne</span>
+            </div>
+            <div class="project-meta">
+              <span class="project-tag mono-xs">P.05 · confection · MA</span>
+              <h3>Atelier Chiffrage</h3>
+              <p>Le chiffrage des façonniers du textile — gamme opératoire, tissu, fournitures, marge : un prix de vente défendable en quelques secondes.</p>
+              <div class="project-link mono-xs">
+                textile.qalame.xyz <span class="arrow">↗</span>
               </div>
             </div>
           </a>
@@ -564,8 +613,8 @@
             <div class="meta">⌘K pour focaliser</div>
           </header>
 
-          <nav class="sandbox-tabs" id="sandboxTabs">
-            <button class="sandbox-tab active" data-tab="db-sync">
+          <nav class="sandbox-tabs" id="sandboxTabs" role="tablist" aria-label="Scénarios de déploiement">
+            <button class="sandbox-tab active" data-tab="db-sync" id="sbTab-db-sync" role="tab" aria-selected="true" aria-controls="sandboxPanel">
               <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <ellipse cx="8" cy="3.5" rx="5" ry="1.8"/>
                 <path d="M3 3.5v9c0 1 2.24 1.8 5 1.8s5-.8 5-1.8v-9"/>
@@ -574,7 +623,7 @@
               <span>Optimisation de sync base de données</span>
               <span class="tag">infra · 01</span>
             </button>
-            <button class="sandbox-tab" data-tab="market-agent">
+            <button class="sandbox-tab" data-tab="market-agent" id="sbTab-market-agent" role="tab" aria-selected="false" tabindex="-1" aria-controls="sandboxPanel">
               <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M2 13h12"/>
                 <path d="M2.5 10.5l3-3.5 2.5 2 4-5"/>
@@ -583,7 +632,7 @@
               <span>Analyse de marché autonome</span>
               <span class="tag">lab · 02</span>
             </button>
-            <button class="sandbox-tab" data-tab="legacy-migration">
+            <button class="sandbox-tab" data-tab="legacy-migration" id="sbTab-legacy-migration" role="tab" aria-selected="false" tabindex="-1" aria-controls="sandboxPanel">
               <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M2 5h8"/>
                 <path d="M7.5 2.5L10 5l-2.5 2.5"/>
@@ -593,7 +642,7 @@
               <span>Migration ETL legacy</span>
               <span class="tag">infra · 03</span>
             </button>
-            <button class="sandbox-tab" data-tab="supply-chain">
+            <button class="sandbox-tab" data-tab="supply-chain" id="sbTab-supply-chain" role="tab" aria-selected="false" tabindex="-1" aria-controls="sandboxPanel">
               <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="3" cy="3.5" r="1.6"/>
                 <circle cx="13" cy="3.5" r="1.6"/>
@@ -607,7 +656,7 @@
             </button>
           </nav>
 
-          <div class="sandbox-body">
+          <div class="sandbox-body" id="sandboxPanel" role="tabpanel" aria-labelledby="sbTab-db-sync">
             <aside class="sandbox-aside">
               <h3 id="sbTitle">Optimisation de sync base de données</h3>
               <p id="sbDesc">
@@ -712,6 +761,8 @@
         </div>
       </div>
     </section>
+
+    </main>
 
     <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
     <footer class="footer">
