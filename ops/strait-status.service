@@ -1,0 +1,21 @@
+[Unit]
+Description=Strait Systems service map checker (writes /srv/strait-status/status.json)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=OUT=/srv/strait-status
+ExecStart=/usr/local/bin/strait-status.sh
+Restart=always
+RestartSec=5
+User=strait-status
+Group=strait-status
+ReadWritePaths=/srv/strait-status
+ProtectSystem=strict
+ProtectHome=yes
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

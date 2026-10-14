@@ -1,135 +1,388 @@
-<!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Legal notice and privacy for straitsystems.com, published by Hamza BEN TAIEB EI (Strait Systems), Paris.">
+<link rel="canonical" href="https://straitsystems.com/legal.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#F3F3F1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F0F11" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Strait Systems">
+<meta property="og:title" content="Legal notice · Strait Systems">
+<meta property="og:description" content="Legal notice and privacy for straitsystems.com, published by Hamza BEN TAIEB EI (Strait Systems), Paris.">
+<meta property="og:url" content="https://straitsystems.com/legal.html">
+<meta property="og:image" content="https://straitsystems.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Legal notice · Strait Systems</title>
+<link rel="preload" href="/fonts/unbounded-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Unbounded";font-style:normal;font-weight:200 700;font-display:swap;src:url(/fonts/unbounded-latin-var.woff2) format("woff2")}
+@font-face{font-family:"Archivo";font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/fonts/archivo-latin-var.woff2) format("woff2")}
+</style>
+<style>
+/* Layout: a precise ledger. Neutral frame, hairlines, small confident type.
+   Signature: the Strait mark as an object; its channel carries the three product colours and opens under the cursor.
+   Radius rule: nothing above 12px. */
+:root{
+  --bg:#F3F3F1; --surface:#FFFFFF; --fg:#111113; --muted:#68686D; --line:#DADAD6; --line-2:#E7E7E3;
+  --mark-a:#111113; --mark-b:#3A3A40;
+  --hb:#DD5A2E; --ra:#C3923C; --rs:#2E54C6;
+  --tint:8%;
+  --display:"Unbounded", "Arial Black", Arial, sans-serif;
+  --text:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --wrap:1240px; --gutter:clamp(16px,4vw,48px);
+  --r-sm:6px; --r:10px; --r-lg:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0F0F11; --surface:#17171A; --fg:#ECECE9; --muted:#8E8E94; --line:#29292E; --line-2:#202024; --mark-a:#ECECE9; --mark-b:#9A9AA0; --tint:14%; color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0F0F11; --surface:#17171A; --fg:#ECECE9; --muted:#8E8E94; --line:#29292E; --line-2:#202024; --mark-a:#ECECE9; --mark-b:#9A9AA0; --tint:14%; color-scheme:dark}
 
-  <title>Mentions légales &amp; Confidentialité | Strait Systems</title>
-  <meta name="description" content="Mentions légales, politique de confidentialité (RGPD · Loi 09-08) et divulgation de sécurité de Strait Systems, Zone Franche de Tanger, Maroc." />
-  <link rel="canonical" href="https://straitsystems.com/legal.html" />
-  <meta name="robots" content="index, follow" />
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4,p{margin:0;font-weight:inherit}
+h1,h2,h3{text-wrap:balance}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter)}
+.cap{font-stretch:125%;font-weight:600;font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.disp{font-family:var(--display);font-weight:300;letter-spacing:-.035em}
 
-  <script>
-    // restore the visitor's theme choice before first paint (same key as app.js)
-    try {
-      var t = localStorage.getItem('strait.theme');
-      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
-    } catch (e) {}
-  </script>
+/* bar */
+.bar{border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:.95rem;letter-spacing:-.005em}
+.brand svg{width:18px;height:18px}
+.bar nav{display:flex;gap:clamp(16px,2.6vw,34px);font-size:.9rem}
+.bar nav a{text-decoration:none;color:var(--muted);transition:color .2s}
+.bar nav a:hover{color:var(--fg)}
+@media (max-width:600px){.bar nav a:not(:last-of-type){display:none}}
+.theme{display:inline-grid;place-items:center;width:32px;height:32px;margin-left:clamp(4px,1vw,10px);border:1px solid var(--line);border-radius:var(--r-sm);background:none;color:var(--muted);cursor:pointer;padding:0;align-self:center}
+.theme:hover{color:var(--fg);border-color:var(--muted)}
+.theme svg{width:15px;height:15px}
+.theme .sun{display:none}
+:root[data-theme="dark"] .theme .sun{display:block}:root[data-theme="dark"] .theme .moon{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .theme .sun{display:block}:root:not([data-theme="light"]) .theme .moon{display:none}}
+.bar nav{align-items:center}
 
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="shortcut icon" href="/favicon.svg" />
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    .doc { max-width: 760px; margin: 0 auto; padding: 64px var(--gutter) 96px; }
-    .doc h1 { font-size: clamp(28px, 3.4vw, 40px); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; margin: 24px 0 12px; }
-    .doc h2 { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin: 44px 0 12px; padding-top: 24px; border-top: 1px solid var(--line); }
-    .doc p, .doc li { color: var(--fg-dim); font-size: 15px; line-height: 1.65; }
-    .doc p + p { margin-top: 10px; }
-    .doc ul { margin: 10px 0 0 18px; }
-    .doc a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(77, 217, 255, 0.45); }
-    .doc a:hover { text-decoration-color: currentColor; }
-    [data-theme="light"] .doc a { text-decoration-color: rgba(0, 123, 182, 0.45); }
-    .doc dl { display: grid; grid-template-columns: 180px 1fr; gap: 8px 20px; margin-top: 14px; }
-    .doc dt { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-faint); padding-top: 3px; }
-    .doc dd { color: var(--fg); font-size: 15px; }
-    .doc-nav { display: flex; align-items: center; justify-content: space-between; height: 64px; border-bottom: 1px solid var(--line); }
-    .doc-nav-inner { max-width: 760px; margin: 0 auto; padding: 0 var(--gutter); width: 100%; display: flex; align-items: center; justify-content: space-between; }
-    .doc-foot { max-width: 760px; margin: 0 auto; padding: 24px var(--gutter) 64px; border-top: 1px solid var(--line); }
-    @media (max-width: 700px) { .doc dl { grid-template-columns: 1fr; gap: 2px 0; } .doc dd { margin-bottom: 10px; } }
-  </style>
-</head>
-<body>
-  <div class="backdrop-grid"></div>
 
-  <div class="page">
-    <nav class="doc-nav">
-      <div class="doc-nav-inner">
-        <a href="/" class="brand">
-          <span class="brand-name">
-            Strait Systems
-            <small>TGR · 01</small>
-          </span>
-        </a>
-        <a href="/" class="mono-xs">← retour au site</a>
-      </div>
-    </nav>
+/* hero */
+.hero .wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,6vw,96px);align-items:center;padding-block:clamp(56px,8vw,112px)}
+@media (max-width:880px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
+.hero h1{font-size:clamp(2rem,3.5vw,3.1rem);line-height:1.1;margin-top:20px;max-width:14em}
+.hero .sub{margin-top:24px;font-size:1.08rem;color:var(--muted);max-width:33em}
+.hero .sub b{color:var(--fg);font-weight:500}
+.act{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;border-radius:var(--r-sm);text-decoration:none;font-weight:600;font-size:.92rem;background:var(--fg);color:var(--bg);transition:opacity .2s}
+.btn:hover{opacity:.86}
+.ghost{text-decoration:none;font-size:.92rem;font-weight:500;padding:10px 4px;border-bottom:1px solid var(--line);transition:border-color .2s}
+.ghost:hover{border-color:var(--fg)}
+.mark-wrap{display:grid;justify-items:center;gap:16px}
+.mark{width:min(100%,360px);aspect-ratio:1;display:block;overflow:visible;touch-action:none}
+.mark .a,.mark .b{transition:transform .5s cubic-bezier(.2,.7,.1,1)}
+.mark-cap{font-size:.78rem;color:var(--muted);text-align:center;max-width:24em}
+.mark-cap i{font-style:normal;font-weight:600;color:var(--fg)}
+@media (max-width:880px){.mark{width:min(64%,260px)}.mark-wrap{justify-items:start}.mark-cap{text-align:left}}
 
-    <main class="doc">
-      <div class="section-eyebrow mono-xs" style="margin-top: 48px;">
-        <span class="index">§LEX</span>
-        <span>Document de référence — dernière mise à jour : 11 juin 2026</span>
-      </div>
-      <h1>Mentions légales &amp; confidentialité.</h1>
-      <p>
-        Ce document couvre l'identité de l'éditeur de ce site, la manière dont
-        vos données sont traitées et le canal de signalement des
-        vulnérabilités. Pas de jargon inutile — si une question reste ouverte,
-        écrivez-nous.
-      </p>
+/* section heads */
+.sec{border-top:1px solid var(--line)}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-block:22px}
 
-      <h2 id="editeur">Éditeur du site</h2>
-      <dl>
-        <dt>Dénomination</dt>
-        <dd>Strait Systems</dd>
-        <dt>Siège</dt>
-        <dd>Zone Franche de Tanger, Tanger, Maroc</dd>
-        <dt>Contact</dt>
-        <dd><a href="mailto:contact@straitsystems.com">contact@straitsystems.com</a></dd>
-      </dl>
+/* products */
+.prod{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(28px,5vw,72px);padding-block:clamp(40px,6vw,80px);border-top:1px solid var(--line-2)}
+@media (max-width:900px){.prod{grid-template-columns:minmax(0,1fr)}}
+.meta{display:flex;flex-direction:column;gap:18px;min-width:0}
+.pname{display:flex;align-items:center;gap:12px}
+.pname h3{font-size:clamp(1.4rem,2vw,1.8rem);line-height:1.1}
+.dot{width:10px;height:10px;border-radius:2px;background:var(--c);flex:none}
+.line{font-weight:600;font-size:1.02rem;line-height:1.35}
+.desc{color:var(--muted);font-size:.95rem;max-width:30em}
+.spec{display:grid;grid-template-columns:7em minmax(0,1fr);margin:6px 0 0;border-top:1px solid var(--line)}
+.spec dt,.spec dd{margin:0;padding:9px 0;border-bottom:1px solid var(--line);font-size:.88rem}
+.spec dt{color:var(--muted)}
+.spec dd{font-variant-numeric:tabular-nums}
+.state{display:inline-flex;align-items:center;gap:8px}
+.state::before{content:"";width:6px;height:6px;border-radius:1px;background:var(--s)}
+.live{--s:#2F9A5E}.review{--s:#D49A2A}.beta{--s:#4F7BE8}
+.go{align-self:flex-start;display:inline-flex;gap:8px;text-decoration:none;font-weight:600;font-size:.9rem;border-bottom:1px solid var(--line);padding-bottom:3px;transition:border-color .2s}
+.go:hover{border-color:var(--c)}
+.shot{min-width:0;background:color-mix(in srgb,var(--c) var(--tint),var(--surface));border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(14px,3.4vw,44px);align-self:start}
+.win{border-radius:var(--r);overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.12),0 12px 32px -12px rgba(0,0,0,.28)}
+@media (prefers-reduced-motion:no-preference){.win{transition:transform .5s cubic-bezier(.2,.7,.1,1),box-shadow .5s}.prod:hover .win{transform:translateY(-4px);box-shadow:0 1px 2px rgba(0,0,0,.12),0 24px 48px -16px rgba(0,0,0,.32)}}
+.hb{--c:var(--hb)}.ra{--c:var(--ra)}.rs{--c:var(--rs)}
 
-      <h2 id="hebergement">Hébergement</h2>
-      <p>
-        Ce site est hébergé par Hetzner Online GmbH, Industriestraße 25,
-        91710 Gunzenhausen, Allemagne — sur une infrastructure opérée par
-        Strait Systems.
-      </p>
+/* Headerbench window (light UI, as shipped) */
+.hbw{background:#fff;color:#1D2330;font-size:12.5px;line-height:1.4}
+.hbw .tb{display:flex;align-items:center;gap:20px;padding:10px 14px;border-bottom:1px solid #E7E9EE;color:#5B6474;white-space:nowrap;overflow:hidden}
+.hbw .logo{display:flex;align-items:center;gap:7px;color:#1D2330;font-weight:600}
+.hbw .logo i{width:15px;height:11px;border-radius:3px;background:#2563EB;box-shadow:inset 0 -4px 0 #93B4F8}
+.hbw .tb .on{color:#1E4FD0;background:#EAF1FF;padding:3px 9px;border-radius:6px;font-weight:500}
+.hbw .body{display:grid;grid-template-columns:170px minmax(0,1fr)}
+.hbw .side{border-right:1px solid #E7E9EE;padding:10px 8px;display:grid;gap:3px;align-content:start;background:#FBFBFD}
+.hbw .pf{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 7px;border-radius:6px}
+.hbw .pf.sel{background:#EAF1FF;color:#1E4FD0}
+.hbw .pf .ic{width:18px;height:18px;border-radius:4px;color:#fff;font-size:9.5px;font-weight:700;display:grid;place-items:center}
+.hbw .main{padding:14px 16px 16px;min-width:0}
+.hbw .ph{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.hbw .ph h4{font-size:15.5px;font-weight:600;display:flex;align-items:center;gap:8px}
+.hbw .badge{font-size:9px;font-weight:700;letter-spacing:.06em;border:1px solid #E0A06A;color:#B5651D;padding:1px 5px;border-radius:3px}
+.hbw .sub{color:#6B7384;font-size:11.5px;margin-top:2px}
+.hbw .tabs{display:flex;gap:18px;margin-top:12px;border-bottom:1px solid #E7E9EE;color:#5B6474;white-space:nowrap;overflow:hidden}
+.hbw .tabs span{padding-bottom:8px}
+.hbw .tabs .on{color:#1E4FD0;box-shadow:inset 0 -2px 0 #2563EB}
+.hbw .tabs em{font-style:normal;font-size:9.5px;background:#EEF1F6;color:#5B6474;border-radius:4px;padding:1px 5px;margin-left:4px}
+.hbw table{width:100%;border-collapse:collapse;margin-top:6px;table-layout:fixed}
+.hbw td{padding:7px 6px 7px 0;border-bottom:1px solid #F0F1F4;vertical-align:middle}
+.hbw .fld{display:block;border:1px solid #DCDFE6;border-radius:5px;padding:4px 7px;font-family:ui-monospace,"SFMono-Regular",Menlo,monospace;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbw .sw{display:inline-block;width:24px;height:14px;border-radius:7px;background:#2563EB;position:relative;vertical-align:middle}
+.hbw .sw::after{content:"";position:absolute;top:2px;right:2px;width:10px;height:10px;border-radius:5px;background:#fff}
+.hbw .sw.off{background:#D5D9E0}.hbw .sw.off::after{right:auto;left:2px}
+@media (max-width:640px){.hbw .body{grid-template-columns:minmax(0,1fr)}.hbw .side{display:none}.hbw .c-act{display:none}}
 
-      <h2 id="confidentialite">Confidentialité — RGPD &amp; Loi 09-08 (MA)</h2>
-      <p>
-        Ce site ne dépose <strong>aucun cookie</strong> et n'embarque
-        <strong>aucun traceur ni outil d'analyse d'audience</strong>. La seule
-        donnée conservée dans votre navigateur est votre préférence de thème
-        (clair/sombre), stockée localement et jamais transmise.
-      </p>
-      <p>
-        Les seules données personnelles que nous recevons sont celles que vous
-        saisissez volontairement dans le canal d'admission : nom, adresse
-        e-mail, organisation et description de votre besoin. Elles sont :
-      </p>
-      <ul>
-        <li>acheminées par Web3Forms (sous-traitant technique) vers notre messagerie ;</li>
-        <li>utilisées exclusivement pour répondre à votre demande ;</li>
-        <li>jamais vendues, partagées ou utilisées à des fins publicitaires ;</li>
-        <li>conservées le temps de l'échange, puis supprimées sur simple demande.</li>
-      </ul>
-      <p>
-        Conformément au Règlement général sur la protection des données (UE)
-        et à la loi marocaine 09-08, vous pouvez exercer vos droits d'accès,
-        de rectification et d'effacement en écrivant à
-        <a href="mailto:contact@straitsystems.com">contact@straitsystems.com</a>.
-      </p>
+/* Rashomon window (its own dark UI) */
+.raw{background:#101114;color:#E7E3DA;padding:18px 20px 16px}
+.raw .rh{display:flex;justify-content:space-between;gap:12px;font-stretch:112%;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8A857B}
+.raw .rh b{color:#F2B35B;font-weight:600}
+.raw .plot{overflow-x:auto;margin-top:6px}
+.raw svg{display:block;width:100%;min-width:500px;height:auto}
+.raw svg text{font-family:var(--text);font-size:12.5px;fill:#8A857B;font-variant-numeric:tabular-nums}
+.raw svg .v{fill:#E7E3DA}.raw svg .a{fill:#F2B35B}
+.raw .ft{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:11.5px;color:#8A857B}
+.raw .ft b{color:#F2B35B;font-weight:600}
 
-      <h2 id="securite">Divulgation de sécurité</h2>
-      <p>
-        Vous avez identifié une vulnérabilité sur ce site ou sur un système
-        opéré par Strait Systems ? Signalez-la de manière responsable à
-        <a href="mailto:contact@straitsystems.com?subject=%5BS%C3%89CURIT%C3%89%5D%20Divulgation%20responsable">contact@straitsystems.com</a>
-        — nous accusons réception et traitons chaque signalement en priorité.
-        Merci de ne pas divulguer publiquement avant correction.
-      </p>
+/* Renov Shield window (light UI) */
+.rsw{background:#fff;color:#0F1B3D;font-size:13px}
+.rsw .rh{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #E6EAF2}
+.rsw .rh b{font-weight:700}
+.rsw .ok{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#0E7A45;background:#E3F5EB;padding:3px 8px;border-radius:4px}
+.rsw .m{padding:11px 16px 2px;color:#5A6784;font-size:12px}
+.rsw ul{list-style:none;margin:0;padding:2px 16px 6px}
+.rsw li{display:grid;grid-template-columns:minmax(0,1fr) auto 16px;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid #EEF1F6}
+.rsw li span:nth-child(2){font-variant-numeric:tabular-nums;font-weight:600}
+.rsw li svg{width:15px;height:15px;color:#0E7A45}
+.rsw .tot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:11px 16px 14px;font-size:12px;color:#5A6784}
+.rsw .tot b{color:#0F1B3D}
 
-      <h2 id="propriete">Propriété intellectuelle</h2>
-      <p>
-        L'ensemble des contenus de ce site (textes, visuels, code) est la
-        propriété de Strait Systems, sauf mention contraire. Les captures de
-        projets clients sont reproduites avec l'accord de leurs propriétaires.
-      </p>
-    </main>
+/* principles ledger */
+.how .wrap,.company .wrap,.contact .wrap{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(28px,5vw,72px);padding-block:clamp(56px,8vw,104px)}
+@media (max-width:900px){.how .wrap,.company .wrap,.contact .wrap{grid-template-columns:minmax(0,1fr)}}
+.sec h2{font-size:clamp(1.4rem,2vw,1.8rem);line-height:1.15;margin-top:14px;max-width:12em}
+.rules{margin:0;border-top:1px solid var(--line)}
+.rules div{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr);gap:8px 32px;padding:18px 0;border-bottom:1px solid var(--line)}
+@media (max-width:600px){.rules div{grid-template-columns:minmax(0,1fr)}}
+.rules dt{font-weight:600}
+.rules dd{margin:0;color:var(--muted)}
 
-    <footer class="doc-foot">
-      <span class="mono-xs">© 2026 Strait Systems · Zone franche de Tanger · 35,72°N · 05,90°O</span>
-    </footer>
+/* company */
+.person{display:flex;gap:16px;align-items:center;margin-top:28px}
+.pic{width:56px;height:56px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--display);font-size:.85rem;color:var(--muted)}
+.person b{display:block;font-weight:600}
+.person span{color:var(--muted);font-size:.9rem}
+.bio{margin-top:18px;color:var(--muted);font-size:.95rem;max-width:30em}
+.ext{display:flex;gap:20px;margin-top:16px;font-size:.88rem}
+.ext a{color:var(--muted);text-decoration:none}
+.ext a:hover{color:var(--fg)}
+.register{margin:0;display:grid;grid-template-columns:minmax(0,12em) minmax(0,1fr);border-top:1px solid var(--line)}
+.register dt,.register dd{margin:0;padding:12px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.register dt{color:var(--muted);padding-right:16px}
+.register dd{font-variant-numeric:tabular-nums}
+.register dd small{color:var(--muted);font-size:.84rem}
+@media (max-width:560px){.register{grid-template-columns:minmax(0,1fr)}.register dt{border-bottom:0;padding-bottom:0}.register dd{padding-top:3px}}
+.verify{display:inline-block;margin-top:16px;font-size:.88rem;color:var(--muted)}
+.verify:hover{color:var(--fg)}
+
+/* contact */
+.mails{border-top:1px solid var(--line)}
+.mail{display:grid;grid-template-columns:minmax(0,12em) minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.mail span{color:var(--muted)}
+.mail code{font-family:var(--text);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:all}
+.copy{font:inherit;font-stretch:125%;font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);background:none;color:var(--muted);padding:6px 10px;border-radius:var(--r-sm);cursor:pointer}
+.copy:hover{color:var(--fg);border-color:var(--fg)}
+@media (max-width:560px){.mail{grid-template-columns:minmax(0,1fr) auto}.mail span{grid-column:1/-1}}
+.company .person{margin-top:0}
+footer .fnav{display:flex;gap:20px;flex-wrap:wrap}footer .fnav a{color:inherit}footer .fnav a:hover{color:var(--fg)}
+.regline{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:.84rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px}.regline a{color:var(--fg);font-weight:500}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:24px 36px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);font-size:.84rem;padding:9px 14px;border-radius:var(--r-sm);z-index:9}
+
+/* ---- hero variants (prototype) ---- */
+.hero{border-bottom:0}
+.hv .wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,6vw,96px);align-items:center;padding-block:clamp(56px,8vw,112px)}
+@media (max-width:880px){.hv .wrap{grid-template-columns:minmax(0,1fr)}}
+/* A: technical figure */
+.fig{margin:0;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:18px 18px 16px;display:grid;gap:12px}
+.fig-top{display:flex;justify-content:space-between}
+.fig .mark{width:100%;max-width:none}
+.fig .dim text{font-family:var(--text);font-size:13px;font-stretch:112%}
+.fig figcaption{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.fig figcaption i{font-style:normal;font-weight:600;color:var(--fg)}
+/* B: shelf */
+.hv .wrap.wide{display:block}
+.b-top,.c-top{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,5vw,80px);align-items:end}
+.b-top .sub,.c-top .sub{margin-top:0}
+@media (max-width:880px){.b-top,.c-top{grid-template-columns:minmax(0,1fr)}}
+.shelf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:clamp(40px,5vw,64px)}
+@media (max-width:820px){.shelf{grid-template-columns:minmax(0,1fr)}}
+.tile{display:grid;text-decoration:none;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--surface);transition:border-color .25s}
+.tile:hover{border-color:var(--c)}
+.crop{height:170px;background:color-mix(in srgb,var(--c) var(--tint),var(--surface));padding:22px 22px 0;overflow:hidden}
+.crop.dark{background:color-mix(in srgb,var(--c) 22%,#101114)}
+.mini{height:100%;border-radius:8px 8px 0 0;background:#fff;box-shadow:0 10px 30px -12px rgba(0,0,0,.35);padding:14px;display:grid;gap:9px;align-content:start;transition:transform .5s cubic-bezier(.2,.7,.1,1)}
+.tile:hover .mini{transform:translateY(-4px)}
+.mini .mb{height:8px;width:38%;border-radius:2px;background:#1D2330}
+.mini .ml{height:6px;border-radius:2px;background:#D5D9E0}.w60{width:60%}
+.mrow{display:grid;grid-template-columns:18px 1fr 1.6fr;gap:8px;align-items:center}
+.mrow i{height:10px;border-radius:5px;background:#2563EB}
+.mrow b{height:16px;border:1px solid #DCDFE6;border-radius:4px}
+.mrow b.s{width:30%}
+.ram{background:#101114;position:relative}
+.ram .axis{position:absolute;left:14px;right:14px;top:96px;height:1px;background:#2A2B30}
+.ram i{position:absolute;top:91px;width:10px;height:10px;border-radius:5px;background:#E7E3DA;margin-left:-5px}
+.ram i:nth-of-type(2){background:#7FB0E8;border-radius:1px}.ram i:nth-of-type(3){background:#86D3A3}.ram i:nth-of-type(4){background:#E8788A}
+.ram .med{position:absolute;left:64%;top:22px;bottom:30px;border-left:1px dashed #5B5850}
+.ram .br{position:absolute;left:14%;right:14%;top:118px;height:8px;border:1.2px solid #F2B35B;border-top:0}
+.rsm .chk{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:4px 0;border-bottom:1px solid #EEF1F6}
+.rsm .chk b{height:7px;width:70%;border-radius:2px;background:#D5DCEA}
+.rsm .chk em{width:12px;height:12px;border-radius:3px;background:#0E7A45}
+.tl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:10px;align-items:center;padding:14px 16px 16px}
+.tl .dot{grid-row:1/3;align-self:start;margin-top:6px}
+.tl b{font-weight:600}
+.tl small{grid-column:2;color:var(--muted);font-size:.85rem}
+.tl svg{grid-column:3;grid-row:1/3;width:14px;height:14px;color:var(--muted);transition:transform .25s}
+.tile:hover .tl svg{transform:translateX(3px);color:var(--fg)}
+/* C: channel band */
+.hv[data-v="c"] .wrap{display:block;padding-block:clamp(56px,8vw,104px) 40px}
+.band{position:relative;height:clamp(200px,24vw,360px);overflow:hidden}
+.band svg{position:absolute;inset:0;width:100%;height:100%}
+.band .a,.band .b{transition:transform .6s cubic-bezier(.2,.7,.1,1)}
+.band-labels{position:absolute;left:0;right:0;bottom:18px;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter);display:flex;justify-content:space-between;pointer-events:none}
+.on-ink{color:var(--bg);opacity:.7}
+/* D: index */
+.dex{border-top:1px solid var(--fg)}
+.dex-h{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}
+.dex-r{display:grid;grid-template-columns:auto minmax(0,1fr) auto 16px;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:padding .25s}
+a.dex-r:hover{padding-left:8px}
+.dex-r b{display:block;font-weight:600}
+.dex-r small{display:block;color:var(--muted);font-size:.86rem}
+.dex-r svg{width:14px;height:14px;color:var(--muted)}
+.dex-r .state{font-size:.84rem;color:var(--muted)}
+.dex-r.next .dot{background:transparent;border:1px solid var(--muted)}
+.dex-r.next{color:var(--muted)}
+.dex-r.next .state::before{background:var(--muted)}
+/* switcher */
+.herosw{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:8;display:flex;align-items:center;gap:4px;padding:5px 5px 5px 14px;border:1px solid var(--line);border-radius:var(--r);background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 8px 24px -10px rgba(0,0,0,.25)}
+.herosw .cap{margin-right:6px}
+.herosw button{font:inherit;font-size:.82rem;font-weight:500;border:0;background:none;color:var(--muted);padding:7px 12px;border-radius:var(--r-sm);cursor:pointer;white-space:nowrap}
+.herosw button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+@media (max-width:560px){.herosw .cap{display:none}}
+
+/* ---- hero with interactive figure in the background (prototype: 4 variants) ---- */
+.bgh{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.bgh canvas{position:absolute;inset:0;width:100%;height:100%;display:block;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,transparent 30%,#000 58%);mask-image:linear-gradient(90deg,transparent 0,transparent 30%,#000 58%)}
+.bgh-in{position:relative;z-index:1;min-height:clamp(540px,46vw,700px);display:flex;flex-direction:column;justify-content:center;padding-block:clamp(64px,8vw,112px);pointer-events:none}
+.bgh-copy{max-width:min(560px,52%);pointer-events:auto}
+.bgh h1{font-size:clamp(2rem,3.5vw,3.1rem);line-height:1.1;margin-top:20px}
+.bgh .sub{margin-top:24px;font-size:1.06rem;color:var(--muted);max-width:32em}
+.bgh .sub b{color:var(--fg);font-weight:500}
+.bgh-hint{position:absolute;right:var(--gutter);bottom:24px}
+@media (max-width:860px){
+  .bgh canvas{-webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 36%,#000 52%);mask-image:linear-gradient(180deg,transparent 0,transparent 36%,#000 52%)}
+  .bgh-in{min-height:0;justify-content:flex-start;padding-bottom:640px}
+  .bgh-copy{max-width:none}
+  .bgh-hint{display:none}
+}
+.bgsw{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:8;display:flex;align-items:center;gap:4px;padding:5px 5px 5px 14px;border:1px solid var(--line);border-radius:var(--r);background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 8px 24px -10px rgba(0,0,0,.25);max-width:calc(100% - 24px);overflow-x:auto}
+.bgsw .cap{margin-right:6px;white-space:nowrap}
+.bgsw button{font:inherit;font-size:.82rem;font-weight:500;border:0;background:none;color:var(--muted);padding:7px 12px;border-radius:var(--r-sm);cursor:pointer;white-space:nowrap}
+.bgsw button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+@media (max-width:560px){.bgsw .cap{display:none}}
+
+/* service map overlay */
+.nodes{position:absolute;inset:0;z-index:2;pointer-events:none}
+.legend{position:absolute;right:var(--gutter);bottom:22px;display:flex;gap:12px;align-items:baseline;font-size:.8rem;color:var(--muted)}
+@media (max-width:860px){.legend{display:none}}
+.node{position:absolute;left:0;top:0;pointer-events:auto;display:flex;flex-direction:row-reverse;align-items:center;gap:10px;background:none;border:0;padding:0;margin:-8px 0 0 -8px;cursor:pointer;font:inherit;color:var(--fg);text-align:left}
+.node i{width:16px;height:16px;border-radius:3px;background:var(--c);box-shadow:0 0 0 4px var(--bg),0 0 0 5px color-mix(in srgb,var(--c) 45%,transparent);flex:none;transition:box-shadow .25s}
+.node[aria-pressed="true"] i{box-shadow:0 0 0 4px var(--bg),0 0 0 6px var(--c)}
+.node span{display:grid;justify-items:end;text-align:right;line-height:1.2;background:color-mix(in srgb,var(--bg) 82%,transparent);padding:4px 6px;border-radius:4px}
+.node b{font-weight:600;font-size:.86rem}
+.node small{display:flex;align-items:center;gap:6px;font-size:.74rem;color:var(--muted)}
+.node small em,.card .ok em{width:6px;height:6px;border-radius:1px;background:#2F9A5E}
+.node.flip{flex-direction:row}.node.flip span{justify-items:start;text-align:left}
+.node.hb{--c:var(--hb)}.node.ra{--c:var(--ra)}.node.rs{--c:var(--rs)}
+.card{position:absolute;left:0;top:0;width:260px;pointer-events:auto;background:var(--surface);border:1px solid var(--line);border-top:2px solid var(--c);border-radius:var(--r);box-shadow:0 18px 40px -18px rgba(0,0,0,.35);padding:14px 16px 12px;transition:transform .35s cubic-bezier(.2,.7,.1,1);font-size:.86rem}
+.card.hb{--c:var(--hb)}.card.ra{--c:var(--ra)}.card.rs{--c:var(--rs)}
+.c-h{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.c-h b{font-weight:600;font-size:.95rem}
+.card .ok{display:inline-flex;align-items:center;gap:6px;font-size:.76rem;color:var(--muted)}
+.card dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;margin:12px 0 0;padding-top:10px;border-top:1px solid var(--line)}
+.card dt{color:var(--muted)}.card dd{margin:0;font-variant-numeric:tabular-nums;text-align:right}
+.c-f{display:flex;justify-content:space-between;gap:10px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-weight:600;font-size:.84rem}
+.c-f a{text-decoration:none}.c-f a:hover{color:var(--c)}
+.c-n{margin-top:8px;font-size:.68rem;color:var(--muted)}
+@media (max-width:860px){.card{width:230px}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+<style>
+.legal .wrap{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(28px,5vw,72px);padding-block:clamp(48px,7vw,96px);border-top:1px solid var(--line)}
+.legal:first-of-type .wrap{border-top:0}
+@media (max-width:900px){.legal .wrap{grid-template-columns:minmax(0,1fr)}}
+.legal h1,.legal h2{font-size:clamp(1.4rem,2.2vw,1.9rem);line-height:1.15;margin-top:14px}
+.legal p{color:var(--muted);font-size:.95rem;max-width:38em;margin:0 0 14px}
+.legal p b{color:var(--fg);font-weight:500}
+.legal .register{margin-bottom:20px}
+.back{display:inline-block;margin-top:20px;font-size:.88rem;color:var(--muted)}
+</style></head><body>
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="./"><svg viewBox="0 0 32 32" aria-hidden="true"><polygon points="0,0 29,0 0,29" fill="currentColor"/><polygon points="32,3 32,32 3,32" fill="currentColor"/></svg>Strait Systems</a>
+    <nav aria-label="Sections"><a href="./#products">Products</a><a href="./#company">Company</a><a href="./#contact">Contact</a><button class="theme" type="button" id="theme" aria-label="Switch to dark mode"><svg class="moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.6A5.6 5.6 0 0 1 6.4 2.5a5.6 5.6 0 1 0 7.1 7.1z" fill="currentColor"/></svg><svg class="sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9 13 13M3 13l1.1-1.1M11.9 4.1 13 3"/></g></svg></button></nav>
   </div>
-</body>
-</html>
+</header>
+<script>
+/* theme: follows the device until the visitor picks one; the choice is remembered on this device */
+(function(){var d=document.documentElement,b=document.getElementById('theme'),mq=window.matchMedia('(prefers-color-scheme: dark)');
+  try{var v=localStorage.getItem('theme');if(v==='light'||v==='dark')d.setAttribute('data-theme',v)}catch(e){}
+  function cur(){return d.getAttribute('data-theme')||(mq.matches?'dark':'light')}
+  function label(){b.setAttribute('aria-label',cur()==='dark'?'Switch to light mode':'Switch to dark mode')}
+  b.addEventListener('click',function(){var t=cur()==='dark'?'light':'dark';d.setAttribute('data-theme',t);try{localStorage.setItem('theme',t)}catch(e){}label()});
+  mq.addEventListener('change',label);label();})();
+</script>
+<main>
+  <section class="legal" id="notice">
+    <div class="wrap">
+      <div><span class="cap">Legal notice · Mentions légales</span><h1 class="disp">Who publishes this site.</h1><a class="back" href="./">← Back to Strait Systems</a></div>
+      <div>
+        <dl class="register">
+          <dt>Legal name</dt><dd>Hamza BEN TAIEB EI<br><small>trading as Strait Systems</small></dd>
+          <dt>Legal form</dt><dd>Entreprise individuelle, micro-entreprise</dd>
+          <dt>SIREN</dt><dd>131 514 655 <small>· RCS Paris, registration in progress</small></dd>
+          <dt>Activity code</dt><dd>5829C <small>· application software publishing</small></dd>
+          <dt>Registered office</dt><dd>231 rue Saint-Honoré, 75001 Paris, France</dd>
+          <dt>Email</dt><dd>contact@straitsystems.com</dd>
+          <dt>VAT</dt><dd>Not applicable <small>· art. 293 B du CGI</small></dd>
+          <dt>Publication director</dt><dd>Hamza Ben Taieb</dd>
+          <dt>Hosting</dt><dd>Hetzner Online GmbH<br><small>Industriestr. 25, 91710 Gunzenhausen, Germany</small></dd>
+        </dl>
+        <a class="verify" href="https://annuaire-entreprises.data.gouv.fr/entreprise/131514655">Check these details in the public register ↗</a>
+      </div>
+    </div>
+  </section>
+  <section class="legal" id="privacy">
+    <div class="wrap">
+      <div><span class="cap">Privacy</span><h2 class="disp">What this site collects.</h2></div>
+      <div>
+        <p><b>No cookies, no analytics, no trackers.</b> This site does not set cookies and loads no third-party scripts.</p>
+        <p>Like any web server, ours records technical access logs (IP address, browser, page requested) to keep the service secure. They are not used for anything else and are deleted after a short period.</p>
+        <p>If you write to us, we use your email only to answer you. Each product has its own privacy policy on its own site.</p>
+        <p>To access or delete data about you, write to contact@straitsystems.com. You can also complain to the CNIL (cnil.fr).</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap"><span>© 2026 Strait Systems · Hamza BEN TAIEB EI · Paris</span><nav class="fnav" aria-label="Legal"><a href="legal.html">Legal notice</a><a href="legal.html#privacy">Privacy</a><span>This site sets no cookies.</span></nav></div></footer>
+</body></html>
